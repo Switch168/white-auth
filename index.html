@@ -11,20 +11,32 @@
   <section class="section">
     <div class="container">
       <h1 class="title">
-        Recaptcha 
+       Kosmos Mobile 
       </h1>
       <p class="subtitle">
         We need to verify you are a <strong>human</strong>!
       </p>
       <div id="phone-sign-in-recaptcha"></div>
+      <br>
+      <p id='thanks' style="display:none;" class="subtitle thank-you">
+        Thank you for <strong>verifying!</strong>! you can close this tab now.
+      </p>
     </div>
   </section>
   </body>
   <script>
+    function toggleHide(divId) {
+      var x = document.getElementById(divId);
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      } 
+    }
     function imNotARobot(captchaToken) {
       var urlToRedirect = 'https://t3r5b.app.goo.gl/?link=https://kosmosmobile.com/welcome&apn=com.switch168.kosmos&isi=1011603314&ibi=com.switch168.kosmos'
       window.location = insertTokenToUrl(urlToRedirect, captchaToken) 
-      window.open('', '_self', ''); window.close();
+      toggleHide('thanks')
     }
     function insertTokenToUrl(url, token){
       return url.replace(/welcome/, 'welcome?token=' + token) 
@@ -50,7 +62,7 @@
         // reCAPTCHA solved - will proceed with submit function
       },
       'expired-callback': function() {
-        window.open('', '_self', ''); window.close();
+        window.reload()
       }
     });
 
