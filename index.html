@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <title>Kosmos Auth</title>
     <link rel="manifest" href="manifest.json">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
   <body>
-    <div class="g-recaptcha" data-callback="imNotARobot" data-sitekey="6LcFj04UAAAAAOGDl_QwHQxY2Wakoc9Iyuo6koTy"></div>
+    <div id="phone-sign-in-recaptcha"></div>
   </body>
   <script>
     function imNotARobot(captchaToken) {
@@ -17,5 +16,31 @@
     function insertTokenToUrl(url, token){
       return url.replace(/welcome/, 'welcome?token=' + token) 
     }
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyA-fHdxJnpjoNbhgO_fSg-Cq3qSS3Jpikg",
+      authDomain: "kosmos-32014.firebaseapp.com",
+      databaseURL: "https://kosmos-32014.firebaseio.com",
+      projectId: "kosmos-32014",
+      storageBucket: "kosmos-32014.appspot.com",
+      messagingSenderId: "346374978790"
+    };
+    firebase.initializeApp(config);
+
+    window['phoneRecaptchaVerifier'] = new firebase.auth.RecaptchaVerifier('phone-sign-in-recaptcha', {
+      /*'size': 'invisible',*/
+      'callback': function(response) {
+        imNotARobot(response) 
+        // reCAPTCHA solved - will proceed with submit function
+      },
+      'expired-callback': function() {
+        window.open('', '_self', ''); window.close();
+      }
+    });
+
+    window.phoneRecaptchaVerifier.render()
   </script>
 </html>
