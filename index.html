@@ -4,42 +4,18 @@
     <meta charset="UTF-8">
     <title>Kosmos Auth</title>
     <link rel="manifest" href="manifest.json">
-    <script src="https://www.gstatic.com/firebasejs/live/4.3/firebase.js"></script>
-    <script src="config.js"></script>
-    <script src="common.js"></script>
-    <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
-    <script src="dist/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="dist/firebaseui.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
   <body>
-    <div id="container">
-      <div id="loading">Loading...</div>
-      <div id="loaded" class="hidden">
-        <div id="main">
-          <div id="user-signed-in" class="hidden">
-            <div id="user-info">
-              <div id="photo-container">
-                <img id="photo">
-              </div>
-              <div id="name"></div>
-              <div id="email"></div>
-              <div id="phone"></div>
-              <div class="clearfix"></div>
-            </div>
-            <p>
-              <button id="sign-out">Sign Out</button>
-              <button id="delete-account">Delete account</button>
-            </p>
-          </div>
-          <div id="user-signed-out" class="hidden">
-            <div id="firebaseui-spa">
-              <div id="firebaseui-container"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="app.js"></script>
+    <div class="g-recaptcha" data-callback="imNotARobot" data-sitekey="6LcFj04UAAAAAOGDl_QwHQxY2Wakoc9Iyuo6koTy"></div>
   </body>
+  <script>
+    function imNotARobot(captchaToken) {
+      var urlToRedirect = 'https://t3r5b.app.goo.gl/?link=https://kosmosmobile.com/welcome&apn=com.switch168.kosmos&isi=1011603314&ibi=com.switch168.kosmos'
+      window.location = insertTokenToUrl(urlToRedirect, captchaToken) 
+    }
+    function insertTokenToUrl(url, token){
+      return url.replace(/welcome/, 'welcome?token=' + token) 
+    }
+  </script>
 </html>

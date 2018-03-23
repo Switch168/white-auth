@@ -30,8 +30,10 @@ function getUiConfig() {
       'signInSuccess': function(user, credential, redirectUrl) {
 
         var redirectHereAfterGetToken = 'https://t3r5b.app.goo.gl/?link=https://kosmosmobile.com/welcome&apn=com.switch168.kosmos&isi=1011603314&ibi=com.switch168.kosmos'
+        console.log(user, credential, redirectUrl)
+        var credential = JSON.stringify(credential) 
 
-        window.location =  addTokenToRedirectString(redirectHereAfterGetToken, user._lat)
+        window.location =  addTokenToRedirectString(redirectHereAfterGetToken, credential)
 
 				firebase.auth().signOut().then(function() {
           window.open('', '_self', ''); window.close();
