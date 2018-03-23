@@ -31,8 +31,10 @@ function getUiConfig() {
 
         var redirectHereAfterGetToken = 'https://t3r5b.app.goo.gl/?link=https://kosmosmobile.com/welcome&apn=com.switch168.kosmos&isi=1011603314&ibi=com.switch168.kosmos'
 
+        window.location =  addTokenToRedirectString(redirectHereAfterGetToken, user._lat)
+
 				firebase.auth().signOut().then(function() {
-        	window.location =  addTokenToRedirectString(redirectHereAfterGetToken, user._lat)
+          window.open('', '_self', ''); window.close();
 				});
         
         return false;
