@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>FirebaseUI Auth Demo</title>
+    <title>Kosmos Auth</title>
     <link rel="manifest" href="manifest.json">
     <script src="https://www.gstatic.com/firebasejs/live/4.3/firebase.js"></script>
     <script src="config.js"></script>
@@ -14,7 +14,6 @@
   </head>
   <body>
     <div id="container">
-      <h3>FirebaseUI Demo</h3>
       <div id="loading">Loading...</div>
       <div id="loaded" class="hidden">
         <div id="main">
@@ -34,25 +33,7 @@
             </p>
           </div>
           <div id="user-signed-out" class="hidden">
-            <h4>You are signed out.</h4>
-            <fieldset>
-              <legend>Configuration</legend>
-              reCAPTCHA mode for Phone Auth:
-              <label for="recaptcha-normal">
-                <input type="radio" id="recaptcha-normal" name="recaptcha" value="normal">
-                Normal
-              </label>
-              <label for="recaptcha-invisible">
-                <input type="radio" id="recaptcha-invisible" name="recaptcha" value="invisible">
-                Invisible
-              </label>
-            </fieldset>
-            <p>
-              <button id="sign-in-with-redirect">Sign In with Redirect</button>
-              <button id="sign-in-with-popup">Sign In with Popup</button>
-            </p>
             <div id="firebaseui-spa">
-              <h5>Single Page Application mode:</h5>
               <div id="firebaseui-container"></div>
             </div>
           </div>

@@ -28,42 +28,19 @@ function getUiConfig() {
     'callbacks': {
       // Called when the user has been successfully signed in.
       'signInSuccess': function(user, credential, redirectUrl) {
-        handleSignedInUser(user);
-        console.log(user, credential, redirectUrl)
-        // Do not redirect.
+
         var redirectHereAfterGetToken = 'https://t3r5b.app.goo.gl/?link=https://kosmosmobile.com/welcome&apn=com.switch168.kosmos&isi=1011603314&ibi=com.switch168.kosmos'
+
+				firebase.auth().signOut().then(function() {
+        	window.location =  addTokenToRedirectString(redirectHereAfterGetToken, user._lat)
+				});
         
-        window.location =  addTokenToRedirectString(redirectHereAfterGetToken, user._lat)
         return false;
       }
     },
     // Opens IDP Providers sign-in flow in a popup.
     'signInFlow': 'popup',
     'signInOptions': [
-      // TODO(developer): Remove the providers you don't need for your app.
-      {
-        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        // Required to enable this provider in One-Tap Sign-up.
-        authMethod: 'https://accounts.google.com',
-        // Required to enable ID token credentials for this provider.
-        clientId: CLIENT_ID
-      },
-      {
-        provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        scopes :[
-          'public_profile',
-          'email',
-          'user_likes',
-          'user_friends'
-        ]
-      },
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // Whether the display name should be displayed in Sign Up page.
-        requireDisplayName: true
-      },
       {
         provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
         recaptchaParameters: {
@@ -190,27 +167,10 @@ function handleRecaptchaConfigChange() {
 /**
  * Initializes the app.
  */
-var initApp = function() {
-  document.getElementById('sign-in-with-redirect').addEventListener(
-      'click', signInWithRedirect);
-  document.getElementById('sign-in-with-popup').addEventListener(
-      'click', signInWithPopup);
-  document.getElementById('sign-out').addEventListener('click', function() {
-    firebase.auth().signOut();
-  });
-  document.getElementById('delete-account').addEventListener(
-      'click', function() {
-        deleteAccount();
-      });
-
-  document.getElementById('recaptcha-normal').addEventListener(
-      'change', handleRecaptchaConfigChange);
-  document.getElementById('recaptcha-invisible').addEventListener(
-      'change', handleRecaptchaConfigChange);
-  // Check the selected reCAPTCHA mode.
-  document.querySelector(
-      'input[name="recaptcha"][value="' + getRecaptchaMode() + '"]')
-      .checked = true;
+var initApp = function() { 
+	document.getElementById('sign-out').addEventListener('click', function() {
+		firebase.auth().signOut();
+	});
 };
 
 window.addEventListener('load', initApp);
