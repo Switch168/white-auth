@@ -35,13 +35,11 @@
     }
     function imNotARobot(captchaToken) {
       var urlToRedirect = 'https://t3r5b.app.goo.gl/?link=https://kosmosmobile.com/welcome&apn=com.switch168.kosmos&isi=1011603314&ibi=com.switch168.kosmos'
-      setTimeout(function goTo() {
-        window.location = insertTokenToUrl(urlToRedirect, captchaToken) 
-        toggleHide('thanks')
-      }, 2000)
+      window.location = insertTokenToUrl(urlToRedirect, captchaToken)
+      toggleHide('thanks')
     }
     function insertTokenToUrl(url, token){
-      return url.replace(/welcome/, 'welcome?token=' + token) 
+      return url.replace(/welcome/, 'welcome?token=' + encodeURIComponent(token)) 
     }
   </script>
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
@@ -61,10 +59,9 @@
       /*'size': 'invisible',*/
       'callback': function(response) {
         imNotARobot(response) 
-        // reCAPTCHA solved - will proceed with submit function
       },
       'expired-callback': function() {
-        window.reload()
+        location.reload()
       }
     });
 
