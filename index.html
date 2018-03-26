@@ -34,7 +34,7 @@
       } 
     }
     function imNotARobot(captchaToken) {
-      var urlToRedirect = 'https://t3r5b.app.goo.gl/?link=https://kosmosmobile.com/welcome&apn=com.switch168.kosmos&isi=1011603314&ibi=com.switch168.kosmos'
+      var urlToRedirect = 'intent:#Intent;scheme=https://kosmosmobile.com/welcome?hi=1234;package=com.switch168.kosmos;end'
       window.location = insertTokenToUrl(urlToRedirect, captchaToken)
       toggleHide('thanks')
     }
