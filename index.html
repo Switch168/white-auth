@@ -18,9 +18,12 @@
       </p>
       <div id="phone-sign-in-recaptcha"></div>
       <br>
-      <p id='thanks' style="display:none;" class="subtitle thank-you">
-        Thank you for <strong>verifying!</strong>! you can close this tab now.
-      </p>
+      <div id='thanks' style="display:none;" class="subtitle thank-you">
+        <p>Thank you for <strong>verifying!</strong>! you can close this tab now.</p>
+        <br>
+        <a class="button" id="next">Click here to complete the verification process</a>
+      </div>
+  
     </div>
   </section>
   </body>
@@ -35,7 +38,9 @@
     }
     function imNotARobot(captchaToken) {
       var urlToRedirect = 'intent:#Intent;scheme=https://kosmosmobile.com/welcome;package=com.switch168.kosmos;end'
-      window.location = insertTokenToUrl(urlToRedirect, captchaToken)
+      var a = document.getElementById('next');
+      a.href = urlToRedirect 
+      /*window.location = insertTokenToUrl(urlToRedirect, captchaToken)*/
       toggleHide('thanks')
     }
     function insertTokenToUrl(url, token){
