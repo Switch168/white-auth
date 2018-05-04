@@ -52,6 +52,12 @@
     }
     function imNotARobot(captchaToken) {
       var urlToRedirect = 'intent://kosmosmobile.com/welcome#Intent;scheme=https;package=com.switch168.kosmos;end'
+      
+      var momoboiler = getQueryParams(document.location.search).momoboiler
+      if(momoboiler) {
+        urlToRedirect = 'intent://kosmosmobile.com/welcome#Intent;scheme=https;package=com.momoboiler.momoboiler;end'
+      }
+
       urlToRedirect = insertTokenToUrl(urlToRedirect, captchaToken)
       var a = document.getElementById('next');
       a.href = urlToRedirect 
