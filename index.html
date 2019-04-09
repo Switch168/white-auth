@@ -28,6 +28,9 @@
   </section>
   </body>
   <script>
+    function isApple() {
+      return navigator.userAgent.toLowerCase().indexOf('apple') > -1
+    }
     function getQueryParams(qs) {
       qs = qs.split('+').join(' ');
 
@@ -51,11 +54,12 @@
       } 
     }
     function imNotARobot(captchaToken) {
-      var urlToRedirect = 'intent://kosmosmobile.com/welcome#Intent;scheme=https;package=com.switch168.kosmos;end'
-      
-      var momoboiler = getQueryParams(document.location.search).momoboiler
-      if(momoboiler) {
-        urlToRedirect = 'intent://kosmosmobile.com/welcome#Intent;scheme=https;package=com.momoboiler.momoboiler;end'
+      var urlToRedirect;
+
+      if(isApple()) {
+        urlToRedirect = 'kosmos://kosmosmobile.com/welcome'
+      } else {
+        urlToRedirect = 'intent://kosmosmobile.com/welcome#Intent;scheme=https;package=com.switch168.kosmos;end'
       }
 
       urlToRedirect = insertTokenToUrl(urlToRedirect, captchaToken)
