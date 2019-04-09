@@ -64,7 +64,11 @@
 
       urlToRedirect = insertTokenToUrl(urlToRedirect, captchaToken)
       var a = document.getElementById('next');
-      a.href = urlToRedirect 
+
+      a.addEventListener("click", () => {
+        window.location = urlToRedirect;
+      });
+
       toggleHide('thanks')
     }
     function insertTokenToUrl(url, token){
