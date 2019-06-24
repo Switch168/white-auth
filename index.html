@@ -28,6 +28,11 @@
   </section>
   </body>
   <script>
+    function postMessage(message){
+      if(!webkit.messageHandlers.cordova_iab) throw "Cordova IAB postMessage API not found!";
+      webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(message));
+    }
+
     function isApple() {
       return navigator.userAgent.toLowerCase().indexOf('apple') > -1
     }
@@ -66,7 +71,11 @@
       var a = document.getElementById('next');
 
       a.addEventListener("click", () => {
-        window.location = urlToRedirect;
+        if(isApple()) {
+          postMessage({token: captchaToken});
+        } else {
+          window.location = urlToRedirect;
+        }
       });
 
       toggleHide('thanks')
