@@ -32,24 +32,6 @@
       if(!webkit.messageHandlers.cordova_iab) throw "Cordova IAB postMessage API not found!";
       webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(message));
     }
-
-    function isApple() {
-      return navigator.userAgent.toLowerCase().indexOf('apple') > -1
-    }
-    function getQueryParams(qs) {
-      qs = qs.split('+').join(' ');
-
-      var params = {},
-          tokens,
-          re = /[?&]?([^=]+)=([^&]*)/g;
-
-      while (tokens = re.exec(qs)) {
-          params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-      }
-
-      return params;
-    }
-
     function toggleHide(divId) {
       var x = document.getElementById(divId);
       if (x.style.display === "none") {
@@ -59,29 +41,15 @@
       } 
     }
     function imNotARobot(captchaToken) {
-      var urlToRedirect;
+      
+      var urlToRedirect = 'kosmos://kosmosmobile.com/welcome'
+      var nextButton = document.getElementById('next');
 
-      if(isApple()) {
-        urlToRedirect = 'kosmos://kosmosmobile.com/welcome'
-      } else {
-        urlToRedirect = 'intent://kosmosmobile.com/welcome#Intent;scheme=https;package=com.switch168.kosmos;end'
-      }
-
-      urlToRedirect = insertTokenToUrl(urlToRedirect, captchaToken)
-      var a = document.getElementById('next');
-
-      a.addEventListener("click", () => {
-        if(isApple()) {
-          postMessage({token: captchaToken});
-        } else {
-          window.location = urlToRedirect;
-        }
+      nextButton.addEventListener("click", () => {
+        postMessage({token: captchaToken});
       });
 
       toggleHide('thanks')
-    }
-    function insertTokenToUrl(url, token){
-      return url.replace(/welcome/, 'welcome?token=' + encodeURIComponent(token)) 
     }
   </script>
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
